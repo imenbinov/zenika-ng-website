@@ -1,10 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 import { ApiService } from '../shared/services/api.service';
 import { MockApiService } from '../shared/services/api.service.mock';
-import { BasketService } from './basket.service';
+import { CatalogService } from './catalog.service';
 
-describe('BasketService', () => {
-  let service: BasketService;
+describe('CatalogService', () => {
+  let service: CatalogService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -15,7 +15,7 @@ describe('BasketService', () => {
         },
       ],
     });
-    service = TestBed.inject(BasketService);
+    service = TestBed.inject(CatalogService);
   });
 
   it('should be created', () => {

@@ -8,27 +8,27 @@ import { BasketItem } from './basket.types';
   providedIn: 'root',
 })
 export class BasketService {
-  basketItems: BasketItem[] = [];
+  items: BasketItem[] = [];
 
-  get basketTotal(): number {
-    return this.basketItems.reduce((total, { price }) => total + price, 0);
+  get total(): number {
+    return this.items.reduce((total, { price }) => total + price, 0);
   }
 
-  getNumberOfItems(): number {
-    return this.basketItems.length;
+  get numberOfItems(): number {
+    return this.items.length;
   }
 
   private apiService = inject(ApiService);
 
   fetch(): Observable<BasketItem[]> {
-    return this.apiService.getBasket().pipe(tap((basketItems) => (this.basketItems = basketItems)));
+    return this.apiService.getBasket().pipe(tap((items) => (this.items = items)));
   }
 
   addItem(productId: string): Observable<BasketItem> {
-    return this.apiService.addToBasket(productId).pipe(tap((item) => (this.basketItems = [...this.basketItems, item])));
+    return this.apiService.addToBasket(productId).pipe(tap((item) => this.items.push(item)));
   }
 
-  checkoutBasket(customer: Customer): Observable<{ orderNumber: number }> {
-    return this.apiService.checkoutBasket(customer).pipe(tap(() => (this.basketItems = [])));
+  checkout(customer: Customer): Observable<{ orderNumber: number }> {
+    return this.apiService.checkoutBasket(customer).pipe(tap(() => (this.items = [])));
   }
 }

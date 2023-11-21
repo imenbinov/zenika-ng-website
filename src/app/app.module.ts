@@ -1,24 +1,21 @@
 import { HttpClientModule } from '@angular/common/http';
-import { InjectionToken, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { WELCOME_MSG } from './app.token';
 import { BasketComponent } from './basket/basket.component';
-import { BasketService } from './basket/basket.service';
 import { CatalogComponent } from './catalog/catalog.component';
 import { ProductComponent } from './catalog/product/product.component';
 import { FooterComponent } from './footer/footer.component';
 import { MenuComponent } from './menu/menu.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 
-export const WELCOME_MSG = new InjectionToken<string>('WELCOME_MSG');
-
 @NgModule({
   imports: [BrowserModule, HttpClientModule, AppRoutingModule],
   providers: [
-    BasketService,
     {
-      provide: 'WELCOME_MSG',
+      provide: WELCOME_MSG,
       useValue: 'Bienvenue sur Zenika Ecommerce',
     },
   ],
@@ -27,9 +24,9 @@ export const WELCOME_MSG = new InjectionToken<string>('WELCOME_MSG');
     BasketComponent,
     CatalogComponent,
     FooterComponent,
+    ProductComponent,
     MenuComponent,
     ProductDetailsComponent,
-    ProductComponent,
   ],
   bootstrap: [AppComponent],
 })

@@ -6,9 +6,9 @@ import { BasketService } from '../basket/basket.service';
   templateUrl: './menu.component.html',
 })
 export class MenuComponent {
-  protected get numberOfBasketItems() {
-    return this.basketService.getNumberOfItems();
-  }
+  private basketService = inject(BasketService);
 
-  protected basketService = inject(BasketService);
+  protected get numberOfItems() {
+    return this.basketService.numberOfItems;
+  }
 }

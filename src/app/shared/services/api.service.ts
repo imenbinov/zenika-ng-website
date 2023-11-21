@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BasketItem } from '../../basket/basket.types';
 import { Product } from '../../catalog/product/product.types';
@@ -11,7 +11,7 @@ import { Customer } from '../../customer/customer.types';
 export class ApiService {
   readonly basePath = 'http://localhost:8080';
 
-  constructor(private httpClient: HttpClient) {}
+  private httpClient = inject(HttpClient);
 
   getProducts(): Observable<Product[]> {
     return this.httpClient.get<Product[]>(`${this.basePath}/api/products`);
