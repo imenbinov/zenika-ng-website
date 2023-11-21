@@ -1,5 +1,5 @@
-import { Component, Inject } from '@angular/core';
-import { BasketItem } from '../basket/basket.types';
+import { Component, Inject, inject } from '@angular/core';
+import { BasketService } from '../basket/basket.service';
 import { ApiService } from '../shared/services/api.service';
 import { Product } from './product/product.types';
 
@@ -10,14 +10,17 @@ import { Product } from './product/product.types';
 export class CatalogComponent {
   protected products: Product[] = [];
 
-  private basketItems: BasketItem[] = [];
+  protected get basketItems() {
+    return this.basketService.basketItems;
+  }
+  protected basketService = inject(BasketService);
 
   constructor(
     @Inject('WELCOME_MSG') protected welcomeMsg: string,
     private apiService: ApiService,
   ) {
     this.apiService.getProducts().subscribe((products) => (this.products = products));
-    this.apiService.getBasket().subscribe((basketItems) => (this.basketItems = basketItems));
+    this.apiService.getBasket().subscribe();
   }
 
   protected get basketTotal(): number {
